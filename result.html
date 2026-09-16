@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analysis Result | NurseryCare AI</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="top-nav">
+
+        <a href="index.html" class="brand">
+            <span class="brand-icon">🌿</span>
+            <span>NurseryCare <strong>AI</strong></span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="analysis.html">
+                AI Analysis
+            </a>
+
+            <a href="history.html">
+                History
+            </a>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="page result-page">
+
+        <!-- Header -->
+
+        <section class="result-header">
+
+            <div>
+
+                <span class="section-badge">
+                    AI ANALYSIS COMPLETE
+                </span>
+
+                <h1 id="plantName">
+                    Analysis Result
+                </h1>
+
+                <p id="analysisDate" class="muted">
+                    Analysis date
+                </p>
+
+            </div>
+
+            <div class="result-actions">
+
+                <a
+                    href="analysis.html"
+                    class="btn secondary"
+                >
+                    + New Analysis
+                </a>
+
+                <a
+                    href="history.html"
+                    class="btn primary"
+                >
+                    View History
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TOP RESULT ================= -->
+
+        <section class="result-grid">
+
+            <!-- Plant Image -->
+
+            <div class="card plant-image-card">
+
+                <div class="card-heading">
+
+                    <div>
+                        <span class="mini-label">
+                            ANALYZED IMAGE
+                        </span>
+
+                        <h2>
+                            Plant Photo
+                        </h2>
+                    </div>
+
+                    <span class="image-status">
+                        ✓ Analyzed
+                    </span>
+
+                </div>
+
+
+                <div class="plant-image-wrapper">
+
+                    <img
+                        id="plantPhoto"
+                        src=""
+                        alt="Analyzed plant"
+                    >
+
+                    <div
+                        id="imagePlaceholder"
+                        class="image-placeholder"
+                    >
+                        🌱
+                    </div>
+
+                </div>
+
+
+                <p
+                    id="fileName"
+                    class="file-name"
+                >
+                    Plant image
+                </p>
+
+            </div>
+
+
+            <!-- Health Score -->
+
+            <div class="card health-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="mini-label">
+                            PLANT HEALTH
+                        </span>
+
+                        <h2>
+                            Overall Health
+                        </h2>
+
+                    </div>
+
+                    <span class="health-icon">
+                        ❤️
+                    </span>
+
+                </div>
+
+
+                <div class="health-score-box">
+
+                    <div class="score-number">
+
+                        <span id="healthScore">
+                            --
+                        </span>
+
+                        <small>
+                            /100
+                        </small>
+
+                    </div>
+
+                    <div
+                        id="healthStatus"
+                        class="health-status"
+                    >
+                        Analyzing
+                    </div>
+
+                </div>
+
+
+                <div class="health-progress">
+
+                    <div
+                        id="healthProgress"
+                        class="health-progress-fill"
+                    ></div>
+
+                </div>
+
+
+                <div class="health-summary">
+
+                    <div>
+
+                        <span>
+                            Plant Type
+                        </span>
+
+                        <strong id="plantType">
+                            --
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Condition
+                        </span>
+
+                        <strong id="overallCondition">
+                            --
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PLANT INFORMATION ================= -->
+
+        <section class="result-section">
+
+            <div class="section-title">
+
+                <div class="title-icon">
+                    🌱
+                </div>
+
+                <div>
+
+                    <h2>
+                        Plant Information
+                    </h2>
+
+                    <p>
+                        AI-based care requirements for your plant
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-grid">
+
+
+                <!-- Water -->
+
+                <div class="info-card">
+
+                    <div class="info-icon water">
+                        💧
+                    </div>
+
+                    <div>
+
+                        <span>
+                            WATER REQUIREMENT
+                        </span>
+
+                        <p id="waterRequirement">
+                            --
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Sunlight -->
+
+                <div class="info-card">
+
+                    <div class="info-icon sunlight">
+                        ☀️
+                    </div>
+
+                    <div>
+
+                        <span>
+                            SUNLIGHT
+                        </span>
+
+                        <p id="sunlightRequirement">
+                            --
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Temperature -->
+
+                <div class="info-card">
+
+                    <div class="info-icon temperature">
+                        🌡️
+                    </div>
+
+                    <div>
+
+                        <span>
+                            TEMPERATURE
+                        </span>
+
+                        <p id="temperatureRequirement">
+                            --
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Soil -->
+
+                <div class="info-card">
+
+                    <div class="info-icon soil">
+                        🪴
+                    </div>
+
+                    <div>
+
+                        <span>
+                            SOIL REQUIREMENT
+                        </span>
+
+                        <p id="soilRequirement">
+                            --
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Nutrients -->
+
+                <div class="info-card">
+
+                    <div class="info-icon nutrient">
+                        🧪
+                    </div>
+
+                    <div>
+
+                        <span>
+                            NUTRIENTS
+                        </span>
+
+                        <p id="nutrientRequirement">
+                            --
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Growth Stage -->
+
+                <div class="info-card">
+
+                    <div class="info-icon growth">
+                        📈
+                    </div>
+
+                    <div>
+
+                        <span>
+                            GROWTH STAGE
+                        </span>
+
+                        <p id="growthStage">
+                            --
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= AI OBSERVATION ================= -->
+
+        <section class="result-grid">
+
+
+            <div class="card observation-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="mini-label">
+                            VISUAL ASSESSMENT
+                        </span>
+
+                        <h2>
+                            🔍 AI Observation
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                <p
+                    id="observation"
+                    class="large-text"
+                >
+                    --
+                </p>
+
+            </div>
+
+
+            <!-- Possible Problem -->
+
+            <div class="card problem-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="mini-label">
+                            PROBLEM CHECK
+                        </span>
+
+                        <h2>
+                            🦠 Possible Problem
+                        </h2>
+
+                    </div>
+
+                    <span class="warning-icon">
+                        ⚠️
+                    </span>
+
+                </div>
+
+
+                <div class="problem-content">
+
+                    <h3 id="possibleProblem">
+                        --
+                    </h3>
+
+                    <div class="confidence">
+
+                        <span>
+                            Visual Confidence
+                        </span>
+
+                        <strong id="problemConfidence">
+                            --
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <p class="disclaimer">
+
+                    This is an AI-based visual assessment
+                    and is not a confirmed laboratory diagnosis.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CARE ================= -->
+
+        <section class="card care-card">
+
+            <div class="care-header">
+
+                <div class="care-title">
+
+                    <div class="care-icon">
+                        🌿
+                    </div>
+
+                    <div>
+
+                        <span class="mini-label">
+                            ACTION PLAN
+                        </span>
+
+                        <h2>
+                            Recommended Care
+                        </h2>
+
+                        <p>
+                            Practical steps to support plant health
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="recommendedCare"
+                class="care-list"
+            >
+
+                <div class="care-loading">
+                    Loading recommendations...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= BOTTOM ACTIONS ================= -->
+
+        <section class="bottom-actions">
+
+            <a
+                href="analysis.html"
+                class="btn primary"
+            >
+                🔍 Analyze Another Plant
+            </a>
+
+            <a
+                href="history.html"
+                class="btn secondary"
+            >
+                🕘 Open Analysis History
+            </a>
+
+            <a
+                href="dashboard.html"
+                class="btn secondary"
+            >
+                📊 View Dashboard
+            </a>
+
+        </section>
+
+
+        <!-- ================= DISCLAIMER ================= -->
+
+        <div class="result-disclaimer">
+
+            <strong>Important:</strong>
+
+            NurseryCare AI provides an AI-assisted visual
+            assessment. Results may not be accurate in every
+            situation. For serious crop disease or treatment
+            decisions, consult a qualified agricultural expert.
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+
+        <div class="footer-brand">
+            🌿 NurseryCare <strong>AI</strong>
+        </div>
+
+        <p>
+            Smart plant health assessment for modern nurseries.
+        </p>
+
+        <span>
+            © 2026 NurseryCare AI
+        </span>
+
+    </footer>
+
+
+    <script src="result.js"></script>
+
+</body>
+
+</html>

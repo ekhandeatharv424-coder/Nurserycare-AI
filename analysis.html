@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Analysis | NurseryCare AI</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f8f5;
+            color: #1f2937;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        nav {
+            min-height: 70px;
+            padding: 0 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            color: #176b35;
+            text-decoration: none;
+            font-size: 21px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav a {
+            color: #4b5563;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav a:hover {
+            color: #176b35;
+        }
+
+        .page {
+            width: min(1180px, 92%);
+            margin: auto;
+            padding: 45px 0 70px;
+        }
+
+        .page-header {
+            margin-bottom: 28px;
+        }
+
+        .page-header h1 {
+            margin: 0 0 10px;
+            color: #173b25;
+            font-size: 34px;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 15px;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1.35fr 0.65fr;
+            gap: 22px;
+            align-items: start;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8e3;
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+        }
+
+        .card h2 {
+            margin: 0 0 22px;
+            color: #173b25;
+            font-size: 20px;
+        }
+
+        .upload-area {
+            border: 2px dashed #b9cdbd;
+            border-radius: 16px;
+            padding: 32px 22px;
+            text-align: center;
+            background: #fafcfb;
+            transition: 0.2s;
+        }
+
+        .upload-area:hover {
+            border-color: #2e7d32;
+            background: #f7fbf7;
+        }
+
+        .upload-icon {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .upload-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #173b25;
+            margin-bottom: 7px;
+        }
+
+        .upload-text {
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        #plantImage {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d8e0da;
+            border-radius: 10px;
+            background: #ffffff;
+            cursor: pointer;
+        }
+
+        #previewImage {
+            display: none;
+            width: 100%;
+            max-height: 420px;
+            object-fit: contain;
+            border-radius: 14px;
+            margin-top: 20px;
+            background: #f3f6f3;
+            border: 1px solid #e1e7e2;
+        }
+
+        .analyze-btn {
+            width: 100%;
+            border: none;
+            border-radius: 11px;
+            padding: 14px 18px;
+            margin-top: 20px;
+            background: #176b35;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .analyze-btn:hover {
+            background: #12572b;
+            transform: translateY(-1px);
+        }
+
+        .analyze-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #status {
+            min-height: 22px;
+            margin: 14px 0 0;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .checks {
+            display: grid;
+            gap: 11px;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 12px 13px;
+            background: #f7faf7;
+            border: 1px solid #e4ebe5;
+            border-radius: 11px;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .check-icon {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: #e7f3e9;
+            flex-shrink: 0;
+        }
+
+        .disclaimer {
+            margin-top: 18px;
+            padding: 13px;
+            border-radius: 10px;
+            background: #fff8e8;
+            border: 1px solid #f0dfb0;
+            color: #725b22;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .steps {
+            margin-top: 22px;
+        }
+
+        .steps h2 {
+            margin-bottom: 18px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .step {
+            padding: 18px;
+            border: 1px solid #e4ebe5;
+            border-radius: 13px;
+            background: #fafcfb;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #176b35;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .step strong {
+            display: block;
+            color: #173b25;
+            margin-bottom: 5px;
+        }
+
+        .step span {
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 850px) {
+
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav {
+                gap: 12px;
+            }
+
+            .nav a {
+                font-size: 12px;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 14px 5%;
+                flex-direction: column;
+                gap: 13px;
+            }
+
+            .nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .page {
+                padding-top: 30px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <a class="brand" href="index.html">
+            🌿 NurseryCare AI
+        </a>
+
+        <div class="nav">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="inventory.html">
+                Inventory
+            </a>
+
+            <a href="history.html">
+                History
+            </a>
+
+            <a href="analytics.html">
+                Analytics
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <main class="page">
+
+        <div class="page-header">
+
+            <h1>
+                AI Plant Analysis
+            </h1>
+
+            <p>
+                Upload a clear plant or crop image
+                for AI-powered visual health assessment.
+            </p>
+
+        </div>
+
+
+        <div class="analysis-grid">
+
+
+            <!-- UPLOAD CARD -->
+
+            <div class="card">
+
+                <h2>
+                    📷 Upload Plant Image
+                </h2>
+
+                <div class="upload-area">
+
+                    <div class="upload-icon">
+                        🌱
+                    </div>
+
+                    <div class="upload-title">
+                        Select a clear plant photo
+                    </div>
+
+                    <div class="upload-text">
+                        JPG, JPEG, PNG or WEBP • Maximum 10 MB
+                    </div>
+
+                    <input
+                        id="plantImage"
+                        type="file"
+                        accept="image/jpeg,image/jpg,image/png,image/webp"
+                    >
+
+                </div>
+
+
+                <img
+                    id="previewImage"
+                    alt="Selected plant preview"
+                >
+
+
+                <button
+                    id="analyzeBtn"
+                    class="analyze-btn"
+                    type="button">
+
+                    🤖 Analyze with AI
+
+                </button>
+
+
+                <p
+                    id="status"
+                    class="muted">
+                </p>
+
+            </div>
+
+
+            <!-- AI CHECKS -->
+
+            <div class="card">
+
+                <h2>
+                    🔍 What AI Checks
+                </h2>
+
+                <div class="checks">
+
+                    <div class="check-item">
+                        <span class="check-icon">🌱</span>
+                        <span>Plant identity</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="check-icon">❤️</span>
+                        <span>Overall health score</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="check-icon">🦠</span>
+                        <span>Possible visible problem</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="check-icon">💧</span>
+                        <span>Water requirement</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="check-icon">☀️</span>
+                        <span>Sunlight requirement</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="check-icon">🌡️</span>
+                        <span>Temperature requirement</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="check-icon">🪴</span>
+                        <span>Soil requirement</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="check-icon">🧪</span>
+                        <span>Nutrient requirement</span>
+                    </div>
+
+                    <div class="check-item">
+                        <span class="check-icon">🌿</span>
+                        <span>Recommended care</span>
+                    </div>
+
+                </div>
+
+
+                <div class="disclaimer">
+
+                    ⚠️ AI disease/problem identification
+                    is based on visible image characteristics
+                    and is not laboratory-confirmed.
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- HOW IT WORKS -->
+
+        <div class="card steps">
+
+            <h2>
+                ⚡ How It Works
+            </h2>
+
+            <div class="steps-grid">
+
+                <div class="step">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <strong>
+                        Upload
+                    </strong>
+
+                    <span>
+                        Choose a clear photo of your
+                        plant or crop.
+                    </span>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <strong>
+                        AI Analysis
+                    </strong>
+
+                    <span>
+                        NurseryCare AI analyzes visible
+                        plant characteristics.
+                    </span>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <strong>
+                        Get Results
+                    </strong>
+
+                    <span>
+                        View health score, possible problems
+                        and recommended care.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script src="analysis.js"></script>
+
+</body>
+
+</html>

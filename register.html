@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Create Account | NurseryCare AI
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body class="auth-body">
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="top-nav">
+
+        <a
+            href="index.html"
+            class="brand"
+        >
+
+            <span class="brand-icon">
+                🌿
+            </span>
+
+            <span>
+                NurseryCare <strong>AI</strong>
+            </span>
+
+        </a>
+
+    </nav>
+
+
+    <!-- ================= REGISTER ================= -->
+
+    <main class="auth-page">
+
+        <div class="auth-card">
+
+
+            <!-- Logo -->
+
+            <div class="auth-logo">
+                🌱
+            </div>
+
+
+            <span class="section-badge">
+                NURSERYCARE AI
+            </span>
+
+
+            <h1>
+                Create Your Account
+            </h1>
+
+
+            <p class="auth-subtitle">
+
+                Create your smart nursery
+                workspace and manage plant
+                health efficiently.
+
+            </p>
+
+
+            <!-- ================= FORM ================= -->
+
+            <form
+                id="registerForm"
+                class="auth-form"
+            >
+
+
+                <!-- Name -->
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            👤
+                        </span>
+
+                        <input
+                            class="input"
+                            id="name"
+                            type="text"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            ✉️
+                        </span>
+
+                        <input
+                            class="input"
+                            id="email"
+                            type="email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+                        <input
+                            class="input"
+                            id="password"
+                            type="password"
+                            placeholder="Minimum 6 characters"
+                            minlength="6"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="togglePassword"
+                            aria-label="Show password"
+                        >
+                            👁️
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Confirm Password -->
+
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            🔐
+                        </span>
+
+                        <input
+                            class="input"
+                            id="confirmPassword"
+                            type="password"
+                            placeholder="Re-enter your password"
+                            minlength="6"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Terms -->
+
+                <label class="terms-row">
+
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        required
+                    >
+
+                    <span>
+
+                        I agree to use NurseryCare AI
+                        for plant and nursery management.
+
+                    </span>
+
+                </label>
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    id="registerBtn"
+                    class="btn primary auth-btn"
+                >
+
+                    <span id="registerBtnText">
+                        Create Account
+                    </span>
+
+                </button>
+
+
+            </form>
+
+
+            <!-- Message -->
+
+            <div
+                id="msg"
+                class="auth-message"
+                aria-live="polite"
+            ></div>
+
+
+            <!-- Login -->
+
+            <p class="auth-footer-text">
+
+                Already have an account?
+
+                <a href="login.html">
+                    Login
+                </a>
+
+            </p>
+
+
+            <!-- Back -->
+
+            <a
+                href="index.html"
+                class="back-home"
+            >
+                ← Back to Home
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer auth-footer">
+
+        <div class="footer-brand">
+            🌿 NurseryCare <strong>AI</strong>
+        </div>
+
+        <span>
+            © 2026 NurseryCare AI
+        </span>
+
+    </footer>
+
+
+    <!-- ================= SCRIPT ================= -->
+
+    <script>
+
+        const registerForm =
+            document.getElementById(
+                "registerForm"
+            );
+
+        const password =
+            document.getElementById(
+                "password"
+            );
+
+        const confirmPassword =
+            document.getElementById(
+                "confirmPassword"
+            );
+
+        const togglePassword =
+            document.getElementById(
+                "togglePassword"
+            );
+
+        const msg =
+            document.getElementById(
+                "msg"
+            );
+
+        const registerBtn =
+            document.getElementById(
+                "registerBtn"
+            );
+
+        const registerBtnText =
+            document.getElementById(
+                "registerBtnText"
+            );
+
+
+        /* ================= PASSWORD SHOW/HIDE ================= */
+
+        togglePassword.addEventListener(
+            "click",
+            function () {
+
+                if (
+                    password.type === "password"
+                ) {
+
+                    password.type =
+                        "text";
+
+                    togglePassword.textContent =
+                        "🙈";
+
+                } else {
+
+                    password.type =
+                        "password";
+
+                    togglePassword.textContent =
+                        "👁️";
+
+                }
+
+            }
+        );
+
+
+        /* ================= MESSAGE ================= */
+
+        function showMessage(
+            text,
+            type
+        ) {
+
+            msg.textContent =
+                text;
+
+            msg.className =
+                "auth-message " +
+                type;
+
+        }
+
+
+        /* ================= REGISTER ================= */
+
+        registerForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const name =
+                    document
+                        .getElementById("name")
+                        .value
+                        .trim();
+
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim()
+                        .toLowerCase();
+
+
+                const passwordValue =
+                    password.value;
+
+
+                const confirmValue =
+                    confirmPassword.value;
+
+
+                /* Name validation */
+
+                if (
+                    name.length < 2
+                ) {
+
+                    showMessage(
+                        "Please enter a valid name.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                /* Password validation */
+
+                if (
+                    passwordValue.length < 6
+                ) {
+
+                    showMessage(
+                        "Password must contain at least 6 characters.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                /* Confirm password */
+
+                if (
+                    passwordValue !==
+                    confirmValue
+                ) {
+
+                    showMessage(
+                        "Passwords do not match.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                /* Disable button */
+
+                registerBtn.disabled =
+                    true;
+
+                registerBtnText.textContent =
+                    "Creating Account...";
+
+
+                try {
+
+                    const existingUsers =
+                        JSON.parse(
+                            localStorage.getItem(
+                                "nurserycare_users"
+                            ) || "[]"
+                        );
+
+
+                    /* Check existing email */
+
+                    const existingUser =
+                        existingUsers.find(
+                            function (user) {
+
+                                return (
+                                    user.email ===
+                                    email
+                                );
+
+                            }
+                        );
+
+
+                    if (existingUser) {
+
+                        showMessage(
+                            "An account with this email already exists.",
+                            "error"
+                        );
+
+                        registerBtn.disabled =
+                            false;
+
+                        registerBtnText.textContent =
+                            "Create Account";
+
+                        return;
+                    }
+
+
+                    /* Create user */
+
+                    const newUser = {
+
+                        id:
+                            Date.now().toString(),
+
+                        name:
+                            name,
+
+                        email:
+                            email,
+
+                        password:
+                            passwordValue,
+
+                        createdAt:
+                            new Date()
+                                .toISOString()
+
+                    };
+
+
+                    existingUsers.push(
+                        newUser
+                    );
+
+
+                    localStorage.setItem(
+                        "nurserycare_users",
+                        JSON.stringify(
+                            existingUsers
+                        )
+                    );
+
+
+                    /* Current user */
+
+                    localStorage.setItem(
+                        "nurserycare_current_user",
+                        JSON.stringify({
+                            id:
+                                newUser.id,
+
+                            name:
+                                newUser.name,
+
+                            email:
+                                newUser.email
+                        })
+                    );
+
+
+                    showMessage(
+                        "Account created successfully. Redirecting...",
+                        "success"
+                    );
+
+
+                    setTimeout(
+                        function () {
+
+                            window.location.href =
+                                "dashboard.html";
+
+                        },
+                        800
+                    );
+
+
+                }
+
+                catch (error) {
+
+                    console.error(
+                        "Registration error:",
+                        error
+                    );
+
+
+                    showMessage(
+                        "Unable to create account. Please try again.",
+                        "error"
+                    );
+
+
+                    registerBtn.disabled =
+                        false;
+
+                    registerBtnText.textContent =
+                        "Create Account";
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

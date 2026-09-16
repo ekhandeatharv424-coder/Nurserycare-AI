@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analytics | NurseryCare AI</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f8f5;
+            color: #1f2937;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        nav {
+            min-height: 70px;
+            padding: 0 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            color: #176b35;
+            text-decoration: none;
+            font-size: 21px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav a {
+            color: #4b5563;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .nav a:hover {
+            color: #176b35;
+        }
+
+        .page {
+            width: min(1180px, 92%);
+            margin: 0 auto;
+            padding: 45px 0 70px;
+        }
+
+        .hero {
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: 34px;
+            color: #173b25;
+        }
+
+        .hero p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 15px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            border: 1px solid #e4e9e5;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            color: #176b35;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e4e9e5;
+            border-radius: 18px;
+            padding: 26px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+        }
+
+        .card h2 {
+            margin: 0 0 22px;
+            font-size: 20px;
+            color: #173b25;
+        }
+
+        .distribution-item {
+            margin-bottom: 22px;
+        }
+
+        .distribution-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .distribution-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 9px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .distribution-value {
+            color: #6b7280;
+        }
+
+        .bar {
+            width: 100%;
+            height: 11px;
+            background: #edf1ed;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .fill {
+            width: 0%;
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.6s ease;
+            background: #2e7d32;
+        }
+
+        #attentionBar {
+            background: #d89b16;
+        }
+
+        #poorBar {
+            background: #d64545;
+        }
+
+        .trend-box {
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 1px dashed #d6ded7;
+            border-radius: 14px;
+            padding: 25px;
+            background: #fafcfb;
+        }
+
+        .trend-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        #trend {
+            color: #4b5563;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .info-card {
+            margin-top: 22px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .info-item {
+            padding: 18px;
+            background: #f7faf7;
+            border-radius: 12px;
+            border: 1px solid #e5ebe6;
+        }
+
+        .info-item strong {
+            display: block;
+            color: #173b25;
+            margin-bottom: 7px;
+            font-size: 14px;
+        }
+
+        .info-item span {
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .loading {
+            color: #6b7280;
+        }
+
+        .error {
+            color: #c62828;
+        }
+
+        @media (max-width: 850px) {
+
+            .nav {
+                gap: 12px;
+            }
+
+            .nav a {
+                font-size: 12px;
+            }
+
+            .stats-grid,
+            .analytics-grid,
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 15px 5%;
+                flex-direction: column;
+                gap: 13px;
+            }
+
+            .nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .page {
+                padding-top: 30px;
+            }
+
+            .card,
+            .stat-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+
+        <a class="brand" href="index.html">
+            🌿 NurseryCare AI
+        </a>
+
+        <div class="nav">
+
+            <a href="analysis.html">
+                AI Analysis
+            </a>
+
+            <a href="inventory.html">
+                Inventory
+            </a>
+
+            <a href="history.html">
+                History
+            </a>
+
+            <a href="analytics.html">
+                Analytics
+            </a>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+    <main class="page">
+
+        <section class="hero">
+
+            <h1>
+                📊 Nursery Analytics
+            </h1>
+
+            <p>
+                Understand your nursery health using AI analysis data.
+            </p>
+
+        </section>
+
+
+        <!-- STAT CARDS -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Average Health
+                </div>
+
+                <div
+                    id="averageHealth"
+                    class="stat-value">
+                    0%
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Best Score
+                </div>
+
+                <div
+                    id="bestScore"
+                    class="stat-value">
+                    0%
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Problem Rate
+                </div>
+
+                <div
+                    id="problemRate"
+                    class="stat-value">
+                    0%
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ANALYTICS -->
+        <section class="analytics-grid">
+
+
+            <!-- HEALTH DISTRIBUTION -->
+            <div class="card">
+
+                <h2>
+                    Health Distribution
+                </h2>
+
+
+                <div class="distribution-item">
+
+                    <div class="distribution-head">
+
+                        <span>
+                            🟢 Healthy
+                        </span>
+
+                        <span
+                            id="healthyPercent"
+                            class="distribution-value">
+                            0%
+                        </span>
+
+                    </div>
+
+                    <div class="bar">
+
+                        <div
+                            id="healthyBar"
+                            class="fill">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="distribution-item">
+
+                    <div class="distribution-head">
+
+                        <span>
+                            🟡 Attention
+                        </span>
+
+                        <span
+                            id="attentionPercent"
+                            class="distribution-value">
+                            0%
+                        </span>
+
+                    </div>
+
+                    <div class="bar">
+
+                        <div
+                            id="attentionBar"
+                            class="fill">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="distribution-item">
+
+                    <div class="distribution-head">
+
+                        <span>
+                            🔴 Poor
+                        </span>
+
+                        <span
+                            id="poorPercent"
+                            class="distribution-value">
+                            0%
+                        </span>
+
+                    </div>
+
+                    <div class="bar">
+
+                        <div
+                            id="poorBar"
+                            class="fill">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TREND -->
+            <div class="card">
+
+                <h2>
+                    📈 Recent Health Trend
+                </h2>
+
+                <div class="trend-box">
+
+                    <div class="trend-icon">
+                        📈
+                    </div>
+
+                    <div
+                        id="trend"
+                        class="loading">
+
+                        Loading analytics...
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INFORMATION -->
+        <section class="card info-card">
+
+            <h2>
+                🌱 Health Score Guide
+            </h2>
+
+            <div class="info-grid">
+
+                <div class="info-item">
+
+                    <strong>
+                        🟢 Healthy — 80 to 100
+                    </strong>
+
+                    <span>
+                        Plant condition appears healthy
+                        based on the available AI analysis.
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <strong>
+                        🟡 Attention — 50 to 79
+                    </strong>
+
+                    <span>
+                        The plant may need additional
+                        care or monitoring.
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <strong>
+                        🔴 Poor — 0 to 49
+                    </strong>
+
+                    <span>
+                        The plant may require immediate
+                        attention and care.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="analytics.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Inventory | NurseryCare AI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f5faf7;
+            color: #173b2a;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            min-height: 72px;
+            background: #ffffff;
+            border-bottom: 1px solid #e3eee7;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.04);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            text-decoration: none;
+            color: #176b45;
+            font-size: 21px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #50675b;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            color: #176b45;
+        }
+
+        /* ================= PAGE ================= */
+
+        .page {
+            width: min(1180px, 92%);
+            margin: 0 auto;
+            padding: 42px 0 70px;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: #163d2b;
+            letter-spacing: -0.5px;
+        }
+
+        .muted {
+            color: #718178;
+            line-height: 1.6;
+        }
+
+        /* ================= CARD ================= */
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e1eee6;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 12px 35px rgba(23, 91, 57, 0.07);
+        }
+
+        .card-header {
+            margin-bottom: 24px;
+        }
+
+        .card-header h2 {
+            font-size: 21px;
+            margin-bottom: 5px;
+            color: #193f2d;
+        }
+
+        .card-header p {
+            font-size: 14px;
+        }
+
+        /* ================= FORM ================= */
+
+        .grid2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            color: #294b3a;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .input,
+        textarea {
+            width: 100%;
+            border: 1px solid #d6e5dc;
+            background: #fbfdfc;
+            border-radius: 11px;
+            outline: none;
+            font-size: 15px;
+            color: #173b2a;
+            transition: 0.2s ease;
+        }
+
+        .input {
+            height: 49px;
+            padding: 0 15px;
+        }
+
+        textarea {
+            min-height: 105px;
+            padding: 14px 15px;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+
+        .input::placeholder,
+        textarea::placeholder {
+            color: #9aa9a1;
+        }
+
+        .input:focus,
+        textarea:focus {
+            border-color: #27945f;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(39, 148, 95, 0.09);
+        }
+
+        /* ================= BUTTON ================= */
+
+        .btn {
+            border: none;
+            border-radius: 11px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #176b45, #27945f);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(23, 107, 69, 0.18);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ================= MESSAGE ================= */
+
+        #message {
+            display: block;
+            width: fit-content;
+            max-width: 100%;
+            margin-top: 13px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrap {
+            margin-top: 28px;
+            background: #ffffff;
+            border: 1px solid #e1eee6;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(23, 91, 57, 0.06);
+        }
+
+        .table-scroll {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 780px;
+        }
+
+        .table th {
+            background: #f1f8f4;
+            color: #315643;
+            font-size: 13px;
+            text-align: left;
+            padding: 16px 18px;
+            border-bottom: 1px solid #dfece4;
+            white-space: nowrap;
+        }
+
+        .table td {
+            padding: 16px 18px;
+            font-size: 14px;
+            color: #52655b;
+            border-bottom: 1px solid #edf3ef;
+            vertical-align: middle;
+        }
+
+        .table tbody tr {
+            transition: background 0.15s ease;
+        }
+
+        .table tbody tr:hover {
+            background: #fbfefc;
+        }
+
+        .table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table td strong {
+            color: #193f2d;
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty {
+            text-align: center;
+            padding: 55px 25px;
+            color: #718178;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .empty h3 {
+            color: #234b36;
+        }
+
+        /* ================= SECTION TITLE ================= */
+
+        .inventory-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-top: 32px;
+            margin-bottom: -12px;
+        }
+
+        .inventory-heading h2 {
+            color: #193f2d;
+            font-size: 21px;
+        }
+
+        .inventory-heading p {
+            font-size: 13px;
+            color: #718178;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+            padding: 25px 20px 35px;
+            color: #819087;
+            font-size: 13px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 850px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav {
+                gap: 13px;
+            }
+
+            .nav a {
+                font-size: 12px;
+            }
+
+            .page {
+                width: 94%;
+                padding-top: 30px;
+            }
+
+            .page-header h1 {
+                font-size: 27px;
+            }
+
+            .card {
+                padding: 23px;
+            }
+
+            .grid2 {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                height: auto;
+                min-height: 68px;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                gap: 10px;
+                padding: 13px 18px;
+            }
+
+            .nav {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 3px;
+            }
+
+            .nav a {
+                white-space: nowrap;
+            }
+
+            .page {
+                width: 94%;
+                padding: 25px 0 40px;
+            }
+
+            .page-header {
+                display: block;
+                margin-bottom: 22px;
+            }
+
+            .page-header h1 {
+                font-size: 25px;
+            }
+
+            .card {
+                border-radius: 16px;
+                padding: 20px;
+            }
+
+            .table-wrap {
+                border-radius: 15px;
+            }
+
+            .inventory-heading {
+                display: block;
+                margin-top: 28px;
+            }
+
+            .inventory-heading p {
+                margin-top: 4px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            #message {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav>
+
+        <a
+            class="brand"
+            href="index.html">
+            🌿 NurseryCare AI
+        </a>
+
+        <div class="nav">
+
+            <a href="analysis.html">
+                AI Analysis
+            </a>
+
+            <a href="history.html">
+                History
+            </a>
+
+            <a href="analytics.html">
+                Analytics
+            </a>
+
+            <a
+                href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a
+                href="inventory.html"
+                class="active">
+                Inventory
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="page">
+
+        <!-- PAGE HEADER -->
+
+        <div class="page-header">
+
+            <div>
+
+                <h1>
+                    🪴 Plant Inventory
+                </h1>
+
+                <p class="muted">
+                    Track nursery plants, quantity, location and notes
+                    in one place.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= ADD PLANT ================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    Add New Plant
+                </h2>
+
+                <p class="muted">
+                    Enter the details of the plant or crop.
+                </p>
+
+            </div>
+
+
+            <form id="inventoryForm">
+
+                <div class="grid2">
+
+                    <!-- PLANT NAME -->
+
+                    <div class="form-group">
+
+                        <label for="plantName">
+                            Plant / Crop Name *
+                        </label>
+
+                        <input
+                            id="plantName"
+                            class="input"
+                            type="text"
+                            placeholder="e.g. Tomato"
+                            autocomplete="off"
+                            maxlength="100"
+                            required>
+
+                    </div>
+
+
+                    <!-- QUANTITY -->
+
+                    <div class="form-group">
+
+                        <label for="quantity">
+                            Quantity *
+                        </label>
+
+                        <input
+                            id="quantity"
+                            class="input"
+                            type="number"
+                            min="0"
+                            step="1"
+                            placeholder="e.g. 100"
+                            required>
+
+                    </div>
+
+
+                    <!-- SECTION -->
+
+                    <div class="form-group">
+
+                        <label for="section">
+                            Section / Location
+                        </label>
+
+                        <input
+                            id="section"
+                            class="input"
+                            type="text"
+                            value="Main Nursery"
+                            placeholder="e.g. Main Nursery"
+                            maxlength="100">
+
+                    </div>
+
+
+                    <!-- DATE -->
+
+                    <div class="form-group">
+
+                        <label for="dateAdded">
+                            Date Added
+                        </label>
+
+                        <input
+                            id="dateAdded"
+                            class="input"
+                            type="date">
+
+                    </div>
+
+                </div>
+
+
+                <!-- NOTES -->
+
+                <div class="form-group">
+
+                    <label for="notes">
+                        Notes
+                    </label>
+
+                    <textarea
+                        id="notes"
+                        placeholder="Add additional information about this plant..."
+                        maxlength="500"></textarea>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    class="btn"
+                    type="submit">
+
+                    + Add Plant
+
+                </button>
+
+
+                <!-- MESSAGE -->
+
+                <span id="message"></span>
+
+            </form>
+
+        </div>
+
+
+        <!-- ================= INVENTORY TITLE ================= -->
+
+        <div class="inventory-heading">
+
+            <div>
+
+                <h2>
+                    Inventory Records
+                </h2>
+
+                <p>
+                    Your saved nursery plant records
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= INVENTORY TABLE ================= -->
+
+        <div
+            id="inventoryTable"
+            class="table-wrap">
+
+            <div class="empty">
+
+                <div style="
+                    font-size:36px;
+                    margin-bottom:10px;
+                ">
+                    ⏳
+                </div>
+
+                <strong>
+                    Loading inventory...
+                </strong>
+
+                <p>
+                    Please wait while your records are loaded.
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+        © 2026 NurseryCare AI · Smart Nursery Management System
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="inventory.js"></script>
+
+</body>
+
+</html>

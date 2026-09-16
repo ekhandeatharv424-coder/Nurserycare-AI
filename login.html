@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | NurseryCare AI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eefaf2, #f8fcf9);
+            color: #173b2a;
+        }
+
+        /* NAVBAR */
+        nav {
+            height: 72px;
+            background: #ffffff;
+            border-bottom: 1px solid #e4eee8;
+            display: flex;
+            align-items: center;
+            padding: 0 7%;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .brand {
+            text-decoration: none;
+            color: #176b45;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 0.2px;
+        }
+
+        /* PAGE */
+        .page {
+            min-height: calc(100vh - 72px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* CARD */
+        .card {
+            width: 100%;
+            max-width: 460px;
+            background: #ffffff;
+            padding: 42px;
+            border-radius: 22px;
+            border: 1px solid #e1eee6;
+            box-shadow: 0 18px 50px rgba(24, 91, 58, 0.10);
+        }
+
+        .logo-box {
+            width: 68px;
+            height: 68px;
+            margin: 0 auto 22px;
+            border-radius: 18px;
+            background: #eaf7ef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 10px;
+            color: #163d2b;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6c7f74;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* FORM */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #294b3a;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input {
+            width: 100%;
+            height: 50px;
+            padding: 0 16px;
+            border: 1px solid #d7e5dc;
+            border-radius: 11px;
+            background: #fbfdfc;
+            color: #173b2a;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        .input:focus {
+            border-color: #27945f;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(39, 148, 95, 0.10);
+        }
+
+        .password-input {
+            padding-right: 78px;
+        }
+
+        .show-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            color: #176b45;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* BUTTON */
+        .btn {
+            width: 100%;
+            height: 52px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #176b45, #27945f);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s ease;
+            margin-top: 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 22px rgba(23, 107, 69, 0.20);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* MESSAGE */
+        #msg {
+            min-height: 22px;
+            text-align: center;
+            margin-top: 18px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .success {
+            color: #167548;
+        }
+
+        .error {
+            color: #c0392b;
+        }
+
+        /* REGISTER */
+        .register-text {
+            text-align: center;
+            margin-top: 25px;
+            color: #6c7f74;
+            font-size: 14px;
+        }
+
+        .register-text a {
+            color: #176b45;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .register-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* SECURITY NOTE */
+        .security-note {
+            margin-top: 25px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: #f2faf5;
+            border: 1px solid #e0eee5;
+            color: #60766a;
+            font-size: 12px;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .brand {
+                font-size: 19px;
+            }
+
+            .card {
+                padding: 30px 22px;
+                border-radius: 18px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a class="brand" href="index.html">
+            🌿 NurseryCare AI
+        </a>
+    </nav>
+
+    <main class="page">
+
+        <div class="card">
+
+            <div class="logo-box">
+                🌱
+            </div>
+
+            <h1>Welcome Back</h1>
+
+            <p class="subtitle">
+                Login to your NurseryCare AI workspace
+                and continue monitoring your plants.
+            </p>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+
+                    <input
+                        class="input"
+                        id="email"
+                        type="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+
+                    <label for="password">Password</label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            class="input password-input"
+                            id="password"
+                            type="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            id="togglePassword">
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn"
+                    id="loginBtn">
+                    Login to Workspace
+                </button>
+
+            </form>
+
+            <p id="msg"></p>
+
+            <p class="register-text">
+                New to NurseryCare AI?
+                <a href="register.html">Create an account</a>
+            </p>
+
+            <div class="security-note">
+                🔒 Your login information is handled locally
+                for this prototype application.
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        const loginForm = document.getElementById("loginForm");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const togglePassword = document.getElementById("togglePassword");
+        const loginBtn = document.getElementById("loginBtn");
+        const msg = document.getElementById("msg");
+
+        /* SHOW / HIDE PASSWORD */
+        togglePassword.addEventListener("click", function () {
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                togglePassword.textContent = "Hide";
+            } else {
+                passwordInput.type = "password";
+                togglePassword.textContent = "Show";
+            }
+
+        });
+
+        /* LOGIN */
+        loginForm.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            msg.textContent = "";
+            msg.className = "";
+
+            const email = emailInput.value.trim().toLowerCase();
+            const password = passwordInput.value;
+
+            if (!email || !password) {
+                msg.textContent = "Please enter email and password.";
+                msg.className = "error";
+                return;
+            }
+
+            let users = [];
+
+            try {
+                users = JSON.parse(
+                    localStorage.getItem("nurserycare_users")
+                ) || [];
+            } catch (error) {
+                users = [];
+            }
+
+            if (!Array.isArray(users) || users.length === 0) {
+
+                msg.textContent =
+                    "No account found. Please create an account first.";
+
+                msg.className = "error";
+                return;
+            }
+
+            const user = users.find(function (item) {
+
+                return (
+                    item.email &&
+                    item.email.toLowerCase() === email &&
+                    item.password === password
+                );
+
+            });
+
+            if (!user) {
+
+                msg.textContent =
+                    "Invalid email or password.";
+
+                msg.className = "error";
+                return;
+            }
+
+            /* SAVE CURRENT USER */
+            const currentUser = {
+                name: user.name || "User",
+                email: user.email,
+                loginTime: new Date().toISOString()
+            };
+
+            localStorage.setItem(
+                "nurserycare_current_user",
+                JSON.stringify(currentUser)
+            );
+
+            msg.textContent = "Login successful. Opening workspace...";
+            msg.className = "success";
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = "Opening Workspace...";
+
+            setTimeout(function () {
+                window.location.href = "dashboard.html";
+            }, 700);
+
+        });
+    </script>
+
+</body>
+
+</html>
