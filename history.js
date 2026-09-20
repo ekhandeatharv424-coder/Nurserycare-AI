@@ -1,4 +1,4 @@
-const API = "http://localhost:5000/api";
+const API = "https://nurserycare-ai-1.onrender.com/api";
 
 let allAnalyses = [];
 
