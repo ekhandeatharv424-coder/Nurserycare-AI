@@ -1,0 +1,16 @@
+{
+  "name": "nurserycare-ai-backend",
+  "version": "2.0.0",
+  "description": "NurseryCare AI backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "openai": "^5.12.2"
+  }
+}
