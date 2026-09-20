@@ -2,46 +2,23 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>Create Account | NurseryCare AI</title>
 
-    <title>
-        Create Account | NurseryCare AI
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body class="auth-body">
-
 
     <!-- ================= NAVBAR ================= -->
 
     <nav class="top-nav">
 
-        <a
-            href="index.html"
-            class="brand"
-        >
-
-            <span class="brand-icon">
-                🌿
-            </span>
-
-            <span>
-                NurseryCare <strong>AI</strong>
-            </span>
-
+        <a href="index.html" class="brand">
+            <span class="brand-icon">🌿</span>
+            <span>NurseryCare <strong>AI</strong></span>
         </a>
 
     </nav>
@@ -53,42 +30,27 @@
 
         <div class="auth-card">
 
-
-            <!-- Logo -->
-
             <div class="auth-logo">
                 🌱
             </div>
-
 
             <span class="section-badge">
                 NURSERYCARE AI
             </span>
 
-
-            <h1>
-                Create Your Account
-            </h1>
-
+            <h1>Create Your Account</h1>
 
             <p class="auth-subtitle">
-
-                Create your smart nursery
-                workspace and manage plant
-                health efficiently.
-
+                Create your smart nursery workspace and manage
+                plant health efficiently.
             </p>
 
 
             <!-- ================= FORM ================= -->
 
-            <form
-                id="registerForm"
-                class="auth-form"
-            >
+            <form id="registerForm" class="auth-form">
 
-
-                <!-- Name -->
+                <!-- NAME -->
 
                 <div class="form-group">
 
@@ -116,7 +78,7 @@
                 </div>
 
 
-                <!-- Email -->
+                <!-- EMAIL -->
 
                 <div class="form-group">
 
@@ -144,7 +106,7 @@
                 </div>
 
 
-                <!-- Password -->
+                <!-- PASSWORD -->
 
                 <div class="form-group">
 
@@ -182,7 +144,7 @@
                 </div>
 
 
-                <!-- Confirm Password -->
+                <!-- CONFIRM PASSWORD -->
 
                 <div class="form-group">
 
@@ -211,7 +173,7 @@
                 </div>
 
 
-                <!-- Terms -->
+                <!-- TERMS -->
 
                 <label class="terms-row">
 
@@ -222,16 +184,14 @@
                     >
 
                     <span>
-
                         I agree to use NurseryCare AI
                         for plant and nursery management.
-
                     </span>
 
                 </label>
 
 
-                <!-- Submit -->
+                <!-- REGISTER BUTTON -->
 
                 <button
                     type="submit"
@@ -245,11 +205,10 @@
 
                 </button>
 
-
             </form>
 
 
-            <!-- Message -->
+            <!-- MESSAGE -->
 
             <div
                 id="msg"
@@ -258,7 +217,7 @@
             ></div>
 
 
-            <!-- Login -->
+            <!-- LOGIN -->
 
             <p class="auth-footer-text">
 
@@ -271,7 +230,7 @@
             </p>
 
 
-            <!-- Back -->
+            <!-- BACK -->
 
             <a
                 href="index.html"
@@ -300,69 +259,89 @@
     </footer>
 
 
-    <!-- ================= SCRIPT ================= -->
+    <!-- ================= REGISTER SCRIPT ================= -->
 
     <script>
 
+        /* =====================================================
+           NURSERYCARE AI
+           BACKEND REGISTRATION
+           ===================================================== */
+
+        const API = "http://localhost:5000/api";
+
+
+        /* ================= ELEMENTS ================= */
+
         const registerForm =
-            document.getElementById(
-                "registerForm"
-            );
+            document.getElementById("registerForm");
 
-        const password =
-            document.getElementById(
-                "password"
-            );
+        const nameInput =
+            document.getElementById("name");
 
-        const confirmPassword =
-            document.getElementById(
-                "confirmPassword"
-            );
+        const emailInput =
+            document.getElementById("email");
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const confirmPasswordInput =
+            document.getElementById("confirmPassword");
 
         const togglePassword =
-            document.getElementById(
-                "togglePassword"
-            );
+            document.getElementById("togglePassword");
 
         const msg =
-            document.getElementById(
-                "msg"
-            );
+            document.getElementById("msg");
 
         const registerBtn =
-            document.getElementById(
-                "registerBtn"
-            );
+            document.getElementById("registerBtn");
 
         const registerBtnText =
-            document.getElementById(
-                "registerBtnText"
-            );
+            document.getElementById("registerBtnText");
 
 
-        /* ================= PASSWORD SHOW/HIDE ================= */
+        /* ================= SHOW MESSAGE ================= */
+
+        function showMessage(text, type) {
+
+            msg.textContent = text;
+
+            msg.className =
+                "auth-message " + type;
+
+        }
+
+
+        /* ================= PASSWORD TOGGLE ================= */
 
         togglePassword.addEventListener(
             "click",
             function () {
 
                 if (
-                    password.type === "password"
+                    passwordInput.type === "password"
                 ) {
 
-                    password.type =
-                        "text";
+                    passwordInput.type = "text";
 
-                    togglePassword.textContent =
-                        "🙈";
+                    togglePassword.textContent = "🙈";
+
+                    togglePassword.setAttribute(
+                        "aria-label",
+                        "Hide password"
+                    );
 
                 } else {
 
-                    password.type =
-                        "password";
+                    passwordInput.type = "password";
 
-                    togglePassword.textContent =
-                        "👁️";
+                    togglePassword.textContent = "👁️";
+
+                    togglePassword.setAttribute(
+                        "aria-label",
+                        "Show password"
+                    );
 
                 }
 
@@ -370,19 +349,60 @@
         );
 
 
-        /* ================= MESSAGE ================= */
+        /* ================= VALID EMAIL ================= */
 
-        function showMessage(
-            text,
-            type
-        ) {
+        function isValidEmail(email) {
 
-            msg.textContent =
-                text;
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-            msg.className =
-                "auth-message " +
-                type;
+        }
+
+
+        /* ================= BUTTON LOADING ================= */
+
+        function setLoading(loading) {
+
+            registerBtn.disabled = loading;
+
+            if (loading) {
+
+                registerBtnText.textContent =
+                    "Creating Account...";
+
+            } else {
+
+                registerBtnText.textContent =
+                    "Create Account";
+
+            }
+
+        }
+
+
+        /* ================= SAVE SESSION ================= */
+
+        function saveSession(data) {
+
+            if (data.token) {
+
+                localStorage.setItem(
+                    "nurserycare_token",
+                    data.token
+                );
+
+            }
+
+            const user = data.user || {};
+
+            localStorage.setItem(
+                "nurserycare_user",
+                JSON.stringify(user)
+            );
+
+            localStorage.setItem(
+                "nurserycare_current_user",
+                JSON.stringify(user)
+            );
 
         }
 
@@ -391,189 +411,195 @@
 
         registerForm.addEventListener(
             "submit",
-            function (event) {
+            async function (event) {
 
                 event.preventDefault();
 
+                showMessage("", "");
 
                 const name =
-                    document
-                        .getElementById("name")
-                        .value
-                        .trim();
-
+                    nameInput.value.trim();
 
                 const email =
-                    document
-                        .getElementById("email")
-                        .value
-                        .trim()
-                        .toLowerCase();
+                    emailInput.value.trim().toLowerCase();
+
+                const password =
+                    passwordInput.value;
+
+                const confirmPassword =
+                    confirmPasswordInput.value;
 
 
-                const passwordValue =
-                    password.value;
+                /* ================= NAME ================= */
 
-
-                const confirmValue =
-                    confirmPassword.value;
-
-
-                /* Name validation */
-
-                if (
-                    name.length < 2
-                ) {
+                if (name.length < 2) {
 
                     showMessage(
                         "Please enter a valid name.",
                         "error"
                     );
 
+                    nameInput.focus();
+
                     return;
+
                 }
 
 
-                /* Password validation */
+                /* ================= EMAIL ================= */
 
-                if (
-                    passwordValue.length < 6
-                ) {
+                if (!isValidEmail(email)) {
+
+                    showMessage(
+                        "Please enter a valid email address.",
+                        "error"
+                    );
+
+                    emailInput.focus();
+
+                    return;
+
+                }
+
+
+                /* ================= PASSWORD ================= */
+
+                if (password.length < 6) {
 
                     showMessage(
                         "Password must contain at least 6 characters.",
                         "error"
                     );
 
+                    passwordInput.focus();
+
                     return;
+
                 }
 
 
-                /* Confirm password */
+                /* ================= CONFIRM PASSWORD ================= */
 
-                if (
-                    passwordValue !==
-                    confirmValue
-                ) {
+                if (password !== confirmPassword) {
 
                     showMessage(
                         "Passwords do not match.",
                         "error"
                     );
 
+                    confirmPasswordInput.focus();
+
                     return;
+
                 }
 
 
-                /* Disable button */
+                /* ================= TERMS ================= */
 
-                registerBtn.disabled =
-                    true;
+                const terms =
+                    document.getElementById("terms");
 
-                registerBtnText.textContent =
-                    "Creating Account...";
+                if (!terms.checked) {
+
+                    showMessage(
+                        "Please accept the terms to continue.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /* ================= START ================= */
+
+                setLoading(true);
 
 
                 try {
 
-                    const existingUsers =
-                        JSON.parse(
-                            localStorage.getItem(
-                                "nurserycare_users"
-                            ) || "[]"
-                        );
+                    /* =========================================
+                       SEND REGISTRATION TO NODE.JS BACKEND
+                       ========================================= */
 
+                    const response =
+                        await fetch(
+                            API + "/auth/register",
+                            {
+                                method: "POST",
 
-                    /* Check existing email */
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
 
-                    const existingUser =
-                        existingUsers.find(
-                            function (user) {
+                                body: JSON.stringify({
 
-                                return (
-                                    user.email ===
-                                    email
-                                );
+                                    name: name,
+
+                                    email: email,
+
+                                    password: password
+
+                                })
 
                             }
                         );
 
 
-                    if (existingUser) {
+                    /* ================= RESPONSE ================= */
 
-                        showMessage(
-                            "An account with this email already exists.",
-                            "error"
-                        );
+                    let data = {};
 
-                        registerBtn.disabled =
-                            false;
+                    try {
 
-                        registerBtnText.textContent =
-                            "Create Account";
+                        data =
+                            await response.json();
 
-                        return;
+                    } catch (jsonError) {
+
+                        data = {};
+
                     }
 
 
-                    /* Create user */
+                    /* ================= ERROR ================= */
 
-                    const newUser = {
+                    if (!response.ok) {
 
-                        id:
-                            Date.now().toString(),
+                        throw new Error(
+                            data.message ||
+                            "Registration failed. Please try again."
+                        );
 
-                        name:
-                            name,
-
-                        email:
-                            email,
-
-                        password:
-                            passwordValue,
-
-                        createdAt:
-                            new Date()
-                                .toISOString()
-
-                    };
+                    }
 
 
-                    existingUsers.push(
-                        newUser
-                    );
+                    /* ================= TOKEN CHECK ================= */
+
+                    if (!data.token) {
+
+                        throw new Error(
+                            "Account was created, but login session could not be created."
+                        );
+
+                    }
 
 
-                    localStorage.setItem(
-                        "nurserycare_users",
-                        JSON.stringify(
-                            existingUsers
-                        )
-                    );
+                    /* ================= SAVE LOGIN ================= */
+
+                    saveSession(data);
 
 
-                    /* Current user */
-
-                    localStorage.setItem(
-                        "nurserycare_current_user",
-                        JSON.stringify({
-                            id:
-                                newUser.id,
-
-                            name:
-                                newUser.name,
-
-                            email:
-                                newUser.email
-                        })
-                    );
-
+                    /* ================= SUCCESS ================= */
 
                     showMessage(
-                        "Account created successfully. Redirecting...",
+                        "Account created successfully. Opening dashboard...",
                         "success"
                     );
 
+
+                    /* ================= REDIRECT ================= */
 
                     setTimeout(
                         function () {
@@ -582,9 +608,8 @@
                                 "dashboard.html";
 
                         },
-                        800
+                        700
                     );
-
 
                 }
 
@@ -596,17 +621,31 @@
                     );
 
 
+                    let message =
+                        error.message ||
+                        "Unable to create account.";
+
+
+                    /* ================= BACKEND OFFLINE ================= */
+
+                    if (
+                        error.name === "TypeError" &&
+                        error.message.toLowerCase().includes("fetch")
+                    ) {
+
+                        message =
+                            "Cannot connect to NurseryCare AI server. Please start the backend on port 5000.";
+
+                    }
+
+
                     showMessage(
-                        "Unable to create account. Please try again.",
+                        message,
                         "error"
                     );
 
 
-                    registerBtn.disabled =
-                        false;
-
-                    registerBtnText.textContent =
-                        "Create Account";
+                    setLoading(false);
 
                 }
 

@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Login | NurseryCare AI</title>
 
     <style>
@@ -21,7 +19,6 @@
             color: #173b2a;
         }
 
-        /* NAVBAR */
         nav {
             height: 72px;
             background: #ffffff;
@@ -37,10 +34,8 @@
             color: #176b45;
             font-size: 22px;
             font-weight: 800;
-            letter-spacing: 0.2px;
         }
 
-        /* PAGE */
         .page {
             min-height: calc(100vh - 72px);
             display: flex;
@@ -49,7 +44,6 @@
             padding: 40px 20px;
         }
 
-        /* CARD */
         .card {
             width: 100%;
             max-width: 460px;
@@ -87,7 +81,6 @@
             margin-bottom: 30px;
         }
 
-        /* FORM */
         .form-group {
             margin-bottom: 20px;
         }
@@ -140,7 +133,6 @@
             cursor: pointer;
         }
 
-        /* BUTTON */
         .btn {
             width: 100%;
             height: 52px;
@@ -160,10 +152,6 @@
             box-shadow: 0 10px 22px rgba(23, 107, 69, 0.20);
         }
 
-        .btn:active {
-            transform: translateY(0);
-        }
-
         .btn:disabled {
             opacity: 0.65;
             cursor: not-allowed;
@@ -171,13 +159,13 @@
             box-shadow: none;
         }
 
-        /* MESSAGE */
         #msg {
             min-height: 22px;
             text-align: center;
             margin-top: 18px;
             font-size: 14px;
             font-weight: 600;
+            line-height: 1.5;
         }
 
         .success {
@@ -188,7 +176,6 @@
             color: #c0392b;
         }
 
-        /* REGISTER */
         .register-text {
             text-align: center;
             margin-top: 25px;
@@ -206,7 +193,6 @@
             text-decoration: underline;
         }
 
-        /* SECURITY NOTE */
         .security-note {
             margin-top: 25px;
             padding: 12px 14px;
@@ -242,194 +228,286 @@
 
 <body>
 
-    <nav>
-        <a class="brand" href="index.html">
-            🌿 NurseryCare AI
-        </a>
-    </nav>
+<nav>
+    <a class="brand" href="index.html">
+        🌿 NurseryCare AI
+    </a>
+</nav>
 
-    <main class="page">
+<main class="page">
 
-        <div class="card">
+    <div class="card">
 
-            <div class="logo-box">
-                🌱
-            </div>
-
-            <h1>Welcome Back</h1>
-
-            <p class="subtitle">
-                Login to your NurseryCare AI workspace
-                and continue monitoring your plants.
-            </p>
-
-            <form id="loginForm">
-
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-
-                    <input
-                        class="input"
-                        id="email"
-                        type="email"
-                        placeholder="Enter your email"
-                        autocomplete="email"
-                        required
-                    >
-                </div>
-
-                <div class="form-group">
-
-                    <label for="password">Password</label>
-
-                    <div class="input-wrapper">
-
-                        <input
-                            class="input password-input"
-                            id="password"
-                            type="password"
-                            placeholder="Enter your password"
-                            autocomplete="current-password"
-                            required
-                        >
-
-                        <button
-                            type="button"
-                            class="show-password"
-                            id="togglePassword">
-                            Show
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <button
-                    type="submit"
-                    class="btn"
-                    id="loginBtn">
-                    Login to Workspace
-                </button>
-
-            </form>
-
-            <p id="msg"></p>
-
-            <p class="register-text">
-                New to NurseryCare AI?
-                <a href="register.html">Create an account</a>
-            </p>
-
-            <div class="security-note">
-                🔒 Your login information is handled locally
-                for this prototype application.
-            </div>
-
+        <div class="logo-box">
+            🌱
         </div>
 
-    </main>
+        <h1>Welcome Back</h1>
 
-    <script>
-        const loginForm = document.getElementById("loginForm");
-        const emailInput = document.getElementById("email");
-        const passwordInput = document.getElementById("password");
-        const togglePassword = document.getElementById("togglePassword");
-        const loginBtn = document.getElementById("loginBtn");
-        const msg = document.getElementById("msg");
+        <p class="subtitle">
+            Login to your NurseryCare AI workspace
+            and continue monitoring your plants.
+        </p>
 
-        /* SHOW / HIDE PASSWORD */
-        togglePassword.addEventListener("click", function () {
+        <form id="loginForm">
 
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                togglePassword.textContent = "Hide";
-            } else {
-                passwordInput.type = "password";
-                togglePassword.textContent = "Show";
-            }
+            <div class="form-group">
+                <label for="email">Email Address</label>
 
-        });
+                <input
+                    class="input"
+                    id="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+            </div>
 
-        /* LOGIN */
-        loginForm.addEventListener("submit", function (event) {
+            <div class="form-group">
 
-            event.preventDefault();
+                <label for="password">Password</label>
 
-            msg.textContent = "";
-            msg.className = "";
+                <div class="input-wrapper">
 
-            const email = emailInput.value.trim().toLowerCase();
-            const password = passwordInput.value;
+                    <input
+                        class="input password-input"
+                        id="password"
+                        type="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
 
-            if (!email || !password) {
-                msg.textContent = "Please enter email and password.";
-                msg.className = "error";
-                return;
-            }
+                    <button
+                        type="button"
+                        class="show-password"
+                        id="togglePassword">
+                        Show
+                    </button>
 
-            let users = [];
+                </div>
 
-            try {
-                users = JSON.parse(
-                    localStorage.getItem("nurserycare_users")
-                ) || [];
-            } catch (error) {
-                users = [];
-            }
+            </div>
 
-            if (!Array.isArray(users) || users.length === 0) {
+            <button
+                type="submit"
+                class="btn"
+                id="loginBtn">
+                Login to Workspace
+            </button>
 
-                msg.textContent =
-                    "No account found. Please create an account first.";
+        </form>
 
-                msg.className = "error";
-                return;
-            }
+        <p id="msg"></p>
 
-            const user = users.find(function (item) {
+        <p class="register-text">
+            New to NurseryCare AI?
+            <a href="register.html">Create an account</a>
+        </p>
 
-                return (
-                    item.email &&
-                    item.email.toLowerCase() === email &&
-                    item.password === password
-                );
+        <div class="security-note">
+            🔒 Secure login through NurseryCare AI backend
+        </div>
+
+    </div>
+
+</main>
+
+<script>
+    /*
+     * NurseryCare AI
+     * Backend Login
+     */
+
+    const API = "http://localhost:5000/api";
+
+    const loginForm = document.getElementById("loginForm");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const togglePassword = document.getElementById("togglePassword");
+    const loginBtn = document.getElementById("loginBtn");
+    const msg = document.getElementById("msg");
+
+
+    /* SHOW / HIDE PASSWORD */
+
+    togglePassword.addEventListener("click", function () {
+
+        if (passwordInput.type === "password") {
+
+            passwordInput.type = "text";
+            togglePassword.textContent = "Hide";
+
+        } else {
+
+            passwordInput.type = "password";
+            togglePassword.textContent = "Show";
+
+        }
+
+    });
+
+
+    /* MESSAGE */
+
+    function showMessage(message, type) {
+
+        msg.textContent = message;
+        msg.className = type || "";
+
+    }
+
+
+    /* LOGIN */
+
+    loginForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        showMessage("", "");
+
+        const email = emailInput.value.trim().toLowerCase();
+        const password = passwordInput.value;
+
+        if (!email || !password) {
+
+            showMessage(
+                "Please enter your email and password.",
+                "error"
+            );
+
+            return;
+
+        }
+
+        loginBtn.disabled = true;
+        loginBtn.textContent = "Signing In...";
+
+        try {
+
+            const response = await fetch(API + "/auth/login", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
 
             });
 
-            if (!user) {
 
-                msg.textContent =
-                    "Invalid email or password.";
+            let data = {};
 
-                msg.className = "error";
-                return;
+            try {
+
+                data = await response.json();
+
+            } catch (error) {
+
+                data = {};
+
             }
 
-            /* SAVE CURRENT USER */
-            const currentUser = {
-                name: user.name || "User",
-                email: user.email,
-                loginTime: new Date().toISOString()
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Login failed. Please check your email and password."
+                );
+
+            }
+
+
+            /*
+             * SAVE BACKEND JWT TOKEN
+             */
+
+            if (data.token) {
+
+                localStorage.setItem(
+                    "nurserycare_token",
+                    data.token
+                );
+
+            }
+
+
+            /*
+             * SAVE USER
+             */
+
+            const user = data.user || {
+
+                name: "User",
+                email: email
+
             };
+
+
+            localStorage.setItem(
+                "nurserycare_user",
+                JSON.stringify(user)
+            );
+
 
             localStorage.setItem(
                 "nurserycare_current_user",
-                JSON.stringify(currentUser)
+                JSON.stringify({
+                    name: user.name || "User",
+                    email: user.email || email,
+                    loginTime: new Date().toISOString()
+                })
             );
 
-            msg.textContent = "Login successful. Opening workspace...";
-            msg.className = "success";
 
-            loginBtn.disabled = true;
+            showMessage(
+                "Login successful. Opening workspace...",
+                "success"
+            );
+
             loginBtn.textContent = "Opening Workspace...";
 
-            setTimeout(function () {
-                window.location.href = "dashboard.html";
-            }, 700);
 
-        });
-    </script>
+            setTimeout(function () {
+
+                window.location.href = "dashboard.html";
+
+            }, 600);
+
+
+        } catch (error) {
+
+            console.error("Login Error:", error);
+
+            let message = error.message ||
+                "Unable to login.";
+
+            if (
+                error instanceof TypeError ||
+                message.includes("Failed to fetch")
+            ) {
+
+                message =
+                    "Backend is not connected. Start NurseryCare AI backend first.";
+
+            }
+
+            showMessage(message, "error");
+
+            loginBtn.disabled = false;
+            loginBtn.textContent = "Login to Workspace";
+
+        }
+
+    });
+</script>
 
 </body>
-
 </html>

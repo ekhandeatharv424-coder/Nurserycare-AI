@@ -1,8 +1,18 @@
 const API = "http://localhost:5000/api";
 
+
+/* ================================
+   GET LOGIN TOKEN
+================================ */
+
 function getToken() {
     return localStorage.getItem("nurserycare_token") || "";
 }
+
+
+/* ================================
+   AUTH HEADERS
+================================ */
 
 function authHeaders() {
     return {
@@ -11,8 +21,16 @@ function authHeaders() {
     };
 }
 
+
+/* ================================
+   CHECK LOGIN
+================================ */
+
 function requireLogin() {
-    if (!getToken()) {
+
+    const token = getToken();
+
+    if (!token) {
         window.location.href = "login.html";
         return false;
     }
@@ -20,7 +38,13 @@ function requireLogin() {
     return true;
 }
 
+
+/* ================================
+   LOGOUT
+================================ */
+
 function logout() {
+
     localStorage.removeItem("nurserycare_token");
     localStorage.removeItem("nurserycare_user");
     localStorage.removeItem("nurserycare_current_user");
@@ -28,6 +52,11 @@ function logout() {
 
     window.location.href = "index.html";
 }
+
+
+/* ================================
+   UPDATE LOGIN / LOGOUT LINK
+================================ */
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -37,19 +66,27 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+
     if (getToken()) {
 
         authLink.textContent = "Logout";
         authLink.href = "#";
 
-        authLink.addEventListener("click", function (event) {
+        authLink.onclick = function (event) {
+
             event.preventDefault();
+
             logout();
-        });
+
+        };
 
     } else {
 
         authLink.textContent = "Login";
         authLink.href = "login.html";
+
+        authLink.onclick = null;
+
     }
+
 });
